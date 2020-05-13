@@ -1,9 +1,23 @@
 pipeline {
     agent any
     stages {
-        stage('Stop Instances') {
+        stage('Download Operations') {
             steps {
-                sh 'echo "Stop Instances"'
+                git url: https://github.com/devops202003/python.git
+            }
+        }
+        stage('Stop Instances') {
+            when {
+                expression { params.OPERATION == 'STOP' }
+            }
+            steps {
+                sh '
+                    cd ${env.WORKSPACE}/python
+                    for i in `/bin/python3 ec2-list-all.py  | grep Id:| awk '{print $NF}' | xargs`
+                    do
+                        /bin/python3 ec2-stop-start.py OFF "$i"
+                    done
+                '
             }
         }
         stage('Start Instances') {
