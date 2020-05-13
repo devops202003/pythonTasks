@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Download Operations') {
             steps {
-                git url: https://github.com/devops202003/python.git
+                git url: 'https://github.com/devops202003/python.git'
             }
         }
         stage('Stop Instances') {
