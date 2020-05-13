@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Download Operations') {
             steps {
-                git url: 'https://github.com/devops202003/python.git'
+                git 'https://github.com/devops202003/python.git'
             }
         }
         stage('Stop Instances') {
@@ -28,7 +28,7 @@ pipeline {
     }
     post {
         success {
-            echo 'Stack has been created'
+            echo 'Successfully params.OPERATION'
         }
         failure {
             echo 'Stack Creation Failed'
