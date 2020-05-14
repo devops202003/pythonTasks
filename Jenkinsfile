@@ -5,7 +5,17 @@ pipeline {
             steps {
             	git 'https://github.com/devops202003/python.git'
             }
-        }    
+        }
+        stage('Create Dev Instance') {
+        	when {
+        		expression { params.OPERATIONS == 'START' }
+        	}
+            steps {
+                sh '''
+                	sudo /usr/bin/python3 ec2-create-instance-json.py
+                '''
+            }
+        }
         stage('List Operations') {
         	when {
         		expression { params.OPERATIONS == 'LIST' }
