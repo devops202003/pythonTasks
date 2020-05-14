@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Create Dev Instance') {
         	when {
-        		expression { params.OPERATIONS == 'START' }
+        		expression { params.OPERATIONS == 'CREATE' }
         	}
             steps {
                 sh '''
